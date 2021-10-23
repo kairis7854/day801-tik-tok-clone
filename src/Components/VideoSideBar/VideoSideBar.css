@@ -1,0 +1,15 @@
+.videoSideBar{
+  position:absolute;
+  bottom:80px;
+  right:10px;
+  color:white;
+  /* text-shadow: 0.1em 0.1em 0.2em black; */
+  filter:drop-shadow(0 0 3px rgb(0, 0, 0));
+  backdrop-filter:blur(1px);
+  /* backdrop-filter:brightness(50%); */
+}
+
+.videoSideBar__button {
+  padding: 20px;
+  text-align: center;
+}
