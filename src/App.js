@@ -9,17 +9,17 @@ function App() {
   const [videos,setVideos] = useState([])
   const [showMessage,setShowMessage] = useState('padding')
 
-  useEffect(()=>{
+  useEffect(()=>{ //從localStorage取數據
     // window.localStorage.removeItem("admin"); 
     let admin = localStorage.getItem('admin') ? localStorage.getItem('admin') : null
     if(!admin){
-      const adminInfo = {userName:nanoid(),liked:'false'}
+      const adminInfo = {userName:nanoid()}
       let str = JSON.stringify(adminInfo)
       localStorage.setItem('admin',str)
     }
   },[])
 
-  useEffect(() => {
+  useEffect(() => { //從firebase、oEmbed取數據
     const prepareData = async() => {
       try {
         let result = await getVideos()
@@ -37,7 +37,10 @@ function App() {
 
   return (
     <div className="App">
-      <div className='App__videos' style={{overflowY:showMessage === 'in' ? 'hidden' : 'scroll' }}>
+      <div 
+        className='App__videos' 
+        style={{overflowY:showMessage === 'in' ? 'hidden' : 'scroll' }} 
+      >
       {
         videos.map((item,index)=>{
           return(

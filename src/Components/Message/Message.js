@@ -57,7 +57,7 @@ function Message({showMessage,setShowMessage,msgs,id}) {
   }
 
   return (
-    <div className={`Message ${showMessage}`}>
+    <div className={`Message ${showMessage}`}       >
       <div className="Message__top">
         <div className="Message__top__CloseButton" onClick={()=>{setShowMessage('out')}} >
           <CloseIcon  sx={{ fontSize: 25 }} />

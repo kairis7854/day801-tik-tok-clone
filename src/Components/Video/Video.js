@@ -4,9 +4,10 @@ import VideoSideBar from '../VideoSideBar/VideoSideBar.js'
 import Message from '../Message/Message.js'
 import './Video.css'
 
-function Video({ src, channel, description, song, likes, msgs, shares, id, showMessage ,setShowMessage }) {
+function Video({ src, channel, description, song, likes, msgs, shares, id, showMessage, setShowMessage}) {
   const [playing,setPlaying] = useState(false)
   const videoRef = useRef(null)
+
   useEffect(()=>{
     if(showMessage === 'in'){
       videoRef.current.pause()
@@ -35,6 +36,7 @@ function Video({ src, channel, description, song, likes, msgs, shares, id, showM
         // controls
         ref={videoRef}
         onClick={onVideoPress}
+        onWheel={()=>{videoRef.current.pause(); setPlaying(false)}}
       ></video>
       <VideoFooter channel={channel} description={description} song={song}/>
       <VideoSideBar likes={likes} msgsLength={msgs.length} shares={shares} id={id} setShowMessage={setShowMessage}/>

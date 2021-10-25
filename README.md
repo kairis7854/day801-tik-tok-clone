@@ -1,6 +1,7 @@
 # 抖音
 
-## 功能
+## DEMO
+連結：https://tik-tok-clone-4dce5.web.app/
 
 ## 筆記：firebase
 官網：https://console.firebase.google.com/
@@ -165,7 +166,7 @@ JS：\
 react冒泡事件是註冊在document上，當原生冒泡事件傳遞到document後，react捕獲再派發給react組件，因此產生些問題
 ```js
 const MessageOnWheel = (e) => {
-  e.stopPropagation();  //阻止冒泡，無法阻止原生事件冒泡
+  e.stopPropagation(); //阻止冒泡，無法阻止原生事件冒泡
   e.nativeEvent.stopImmediatePropagation(); //e.nativeEvent調用原生方法，阻止原生冒泡，結果react捕獲不到document冒泡事件
 }
 ```
@@ -226,3 +227,72 @@ FB開發官網給的"分享按鈕"代碼是html格式，而react不支援解析h
 4.把連結取出，另外設置點擊事件打開連結
 
 參考：https://blog.csdn.net/qq_38519358/article/details/100667730?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link
+
+## 筆記：try catch相關
+try catch 除了處理錯誤，也可以用來為函數定義第二種方法
+
+```js
+var toArray = function(s){
+    //try语句允许我们定义在执行时进行错误测试的代码块。
+   //catch 语句允许我们定义当 try 代码块发生错误时，所执行的代码块。
+    try{
+        return Array.prototype.slice.call(s);
+    } catch(e){
+        var arr = [];
+        for(var i = 0,len = s.length; i < len; i++){
+            //arr.push(s[i]);
+               arr[i] = s[i];  //据说这样比push快
+        }
+         return arr;
+    }
+}
+```
+## 筆記：scroll-snap-type延伸
+scroll-snap-typed是CSS語法，他有強大的功能，可以不靠JS製作輪播圖幻燈片等等，但也有缺點那就是API還不夠完善，
+需要靠JS完成相關任務。
+需求：為使用scroll-snap-type的組件，設置任務，如高亮當前組件
+問題：scroll-snap-type沒有相關語法
+解決：使用JS
+```js
+function App() {
+  const [currentVideo,setCurrentVideo] = useState(1)
+  const videosRef = useRef()
+  
+  const onVideoScroll = (e) => { //獲取當前視頻位置
+    let arr = []
+    arr.slice.call(e.target.children).forEach(function (item, index) {
+      if (Math.abs(item.getBoundingClientRect().top - e.target.getBoundingClientRect().top) < 10) {
+        //功能代碼
+      } 
+    });
+  }
+
+  return (
+    <div>
+      <div 
+        onScroll={(e)=>{onVideoScroll(e)}}
+        ref={videosRef}
+      >
+        {
+          //xxx.map(()=>{return <div></div>})...
+        }
+      </div>
+    </div>
+  )
+}
+```
+參考：https://www.gushiciku.cn/pl/21XG/zh-tw
+
+
+
+
+
+
+
+
+
+
+
+
+
+

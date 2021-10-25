@@ -18,18 +18,14 @@ function HeartButton({likes,id}) {
   const setLike = () => {
     let adminInfo = JSON.parse(localStorage.getItem('admin'))
     if(liked === false){
-      adminInfo.liked = 'true'
       addLikesArrayUnion(id,adminInfo.userName)
       setLiked(true)
       setLikeNum(likeNum+1)
     } else {
-      adminInfo.liked = 'false'
       LikesArrayRemove(id,adminInfo.userName)
       setLiked(false)
       setLikeNum(likeNum-1)
     }
-    let str = JSON.stringify(adminInfo)
-    localStorage.setItem('admin',str)
   }
 
   return (
