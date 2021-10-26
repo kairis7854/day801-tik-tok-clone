@@ -57,13 +57,13 @@ function Message({showMessage,setShowMessage,msgs,id,channel,description}) {
   }
 
   return (
-    <div className={`Message ${showMessage}`}       >
+    <div className={`Message ${showMessage}`} onClick={(e)=>{e.stopPropagation(e)}}>
       <div className="Message__top">
         <div className="Message__top__title">
           <p>{channel}</p>
           <p>{description}</p>
         </div>
-        <div className="Message__top__CloseButton" onClick={(e)=>{setShowMessage('out');e.stopPropagation(e)}} >
+        <div className="Message__top__CloseButton" onClick={()=>{setShowMessage('out')}} >
           <CloseIcon  sx={{ fontSize: 25 }} />
         </div>
       </div>
