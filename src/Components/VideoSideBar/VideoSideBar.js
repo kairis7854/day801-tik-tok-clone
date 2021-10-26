@@ -10,8 +10,10 @@ function VideoSideBar({likes,msgsLength,shares,id,setShowMessage}) {
     <div className='videoSideBar'>
       <HeartButton likes={likes} id={id}/>
       <div className="videoSideBar__button">
-        <ChatIcon fontSize='large' onClick={()=>{setShowMessage('in')}}/>
-        <p>{msgsLength}</p>
+        <div  className="videoSideBar__button__inner" onClick={(e)=>{setShowMessage('in');e.stopPropagation(e)}}>
+          <ChatIcon fontSize='large'/>
+          <p>{msgsLength}</p>
+        </div>
       </div>
       <ShareButton shares={shares}/>
     </div>

@@ -4,5 +4,13 @@
 }
 
 .ShareButton__ICON {
+  display:flex;
+  justify-content: center;
+  align-items: center;
   color: white;
+  backdrop-filter:brightness(88%);
+  filter:drop-shadow(0 0 1px rgb(0, 0, 0));
+  -webkit-text-stroke: .1px rgb(0, 0, 0);
+  border-radius: 10px;
+  cursor: pointer;
 }

@@ -5,7 +5,7 @@ import MessageIcon from '@material-ui/icons/Message';
 import SendIcon from '@material-ui/icons/Send';
 import './Message.css'
 
-function Message({showMessage,setShowMessage,msgs,id}) {
+function Message({showMessage,setShowMessage,msgs,id,channel,description}) {
   const ULRef = useRef(null)
   const [value,setValue] = useState('')
   const [myMessage,setMyMessage] =  useState([])
@@ -59,7 +59,11 @@ function Message({showMessage,setShowMessage,msgs,id}) {
   return (
     <div className={`Message ${showMessage}`}       >
       <div className="Message__top">
-        <div className="Message__top__CloseButton" onClick={()=>{setShowMessage('out')}} >
+        <div className="Message__top__title">
+          <p>{channel}</p>
+          <p>{description}</p>
+        </div>
+        <div className="Message__top__CloseButton" onClick={(e)=>{setShowMessage('out');e.stopPropagation(e)}} >
           <CloseIcon  sx={{ fontSize: 25 }} />
         </div>
       </div>
@@ -95,8 +99,8 @@ function Message({showMessage,setShowMessage,msgs,id}) {
                     <p>訪客</p>
                   </div>
                   <p className='Message__ul__li__content' >{item.msg}</p>
-                  <div onClick={()=>{deleteMessage(item.id,item.user,item.auth,item.msg)}} className='Message__ul__li__button'>
-                    <div>收回</div>
+                  <div className='Message__ul__li__button'>
+                    <div onClick={()=>{deleteMessage(item.id,item.user,item.auth,item.msg)}} >收回</div>
                   </div>
                 </li>
               )
@@ -113,7 +117,9 @@ function Message({showMessage,setShowMessage,msgs,id}) {
           onChange={(e)=>{setValue(e.target.value)}}
           value={value}
         />
-        <SendIcon fontSize='large' onClick={addMessage}/>
+        <div className="Message__bottom__send" onClick={addMessage}>
+          <SendIcon fontSize='large'/>
+        </div>
       </div>
     </div>
   )

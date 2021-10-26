@@ -11,12 +11,16 @@
 
 .videoFooter__text{
   flex:1;
-
+  backdrop-filter:brightness(88%);
+  filter:drop-shadow(0 0 1px rgb(0, 0, 0));
+  -webkit-text-stroke: .1px rgb(0, 0, 0);
+  border-radius: 10px;
 }
 
 .videoFooter__text > p{
   width: 75%;
   padding-bottom:20px;
+
 }
 
 .videoFooter__record{

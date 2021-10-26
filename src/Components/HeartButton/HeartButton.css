@@ -2,3 +2,12 @@
   padding: 20px;
   text-align: center;
 }
+
+.HeartButton__inner{
+  backdrop-filter:brightness(88%);
+  filter:drop-shadow(0 0 1px rgb(0, 0, 0));
+  -webkit-text-stroke: .1px rgb(0, 0, 0);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}

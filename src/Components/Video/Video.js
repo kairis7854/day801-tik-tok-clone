@@ -28,19 +28,22 @@ function Video({ src, channel, description, song, likes, msgs, shares, id, showM
   }
 
   return (
-    <div className='video'>
+    <div 
+      className='video' 
+      onWheel={()=>{videoRef.current.pause(); setPlaying(false)}} 
+      onTouchMove={()=>{videoRef.current.pause(); setPlaying(false)}} 
+      onClick={onVideoPress}
+    >
       <video 
         className='video__player' 
         src={src}
         loop
         // controls
         ref={videoRef}
-        onClick={onVideoPress}
-        onWheel={()=>{videoRef.current.pause(); setPlaying(false)}}
       ></video>
       <VideoFooter channel={channel} description={description} song={song}/>
       <VideoSideBar likes={likes} msgsLength={msgs.length} shares={shares} id={id} setShowMessage={setShowMessage}/>
-      <Message showMessage={showMessage} setShowMessage={setShowMessage} msgs={msgs} id={id}/>
+      <Message showMessage={showMessage} setShowMessage={setShowMessage} msgs={msgs} id={id} channel={channel} description={description}/>
     </div>
   )
 }

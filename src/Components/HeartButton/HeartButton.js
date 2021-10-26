@@ -15,7 +15,8 @@ function HeartButton({likes,id}) {
     setLiked(res ? true : false)
   },[likes])
 
-  const setLike = () => {
+  const setLike = (e) => {
+    e.stopPropagation() 
     let adminInfo = JSON.parse(localStorage.getItem('admin'))
     if(liked === false){
       addLikesArrayUnion(id,adminInfo.userName)
@@ -30,12 +31,14 @@ function HeartButton({likes,id}) {
 
   return (
     <div className='HeartButton'>
-      {
-        liked
-          ? <FavoriteIcon fontSize='large' onClick={setLike}/>
-          : <FavoriteBorderIcon fontSize='large' onClick={setLike}/>
-      }
-      <p>{likeNum}</p>
+      <div className='HeartButton__inner' onClick={(e)=>{setLike(e)}}>
+        {
+          liked
+            ? <FavoriteIcon fontSize='large'/>
+            : <FavoriteBorderIcon fontSize='large'/>
+        }
+        <p>{likeNum}</p>
+      </div>
     </div>
   )
 }

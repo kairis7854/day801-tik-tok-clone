@@ -159,14 +159,14 @@ export default db
  
 ## 筆記：滾輪、冒泡相關
 CSS：\
-touch-action: none;　//用於移動端，電腦版無效。阻止觸碰滑動，對ul無效
+touch-action: none;　//用於移動端，電腦版無效。阻止觸碰滑動，對ul無效\
 overscroll-behavior: none; //用於移動端、電腦版。阻止滾輪事件冒泡傳遞，對無滾輪組件無效
 
 JS：\
 react冒泡事件是註冊在document上，當原生冒泡事件傳遞到document後，react捕獲再派發給react組件，因此產生些問題
 ```js
 const MessageOnWheel = (e) => {
-  e.stopPropagation(); //阻止冒泡，無法阻止原生事件冒泡
+  e.stopPropagation(); //阻止冒泡，react處理冒泡的主要方法，無法阻止原生事件冒泡
   e.nativeEvent.stopImmediatePropagation(); //e.nativeEvent調用原生方法，阻止原生冒泡，結果react捕獲不到document冒泡事件
 }
 ```
@@ -249,9 +249,9 @@ var toArray = function(s){
 ```
 ## 筆記：scroll-snap-type延伸
 scroll-snap-typed是CSS語法，他有強大的功能，可以不靠JS製作輪播圖幻燈片等等，但也有缺點那就是API還不夠完善，
-需要靠JS完成相關任務。
-需求：為使用scroll-snap-type的組件，設置任務，如高亮當前組件
-問題：scroll-snap-type沒有相關語法
+需要靠JS完成相關任務。\
+需求：為使用scroll-snap-type的組件，設置任務，如高亮當前組件\
+問題：scroll-snap-type沒有相關語法\
 解決：使用JS
 ```js
 function App() {
