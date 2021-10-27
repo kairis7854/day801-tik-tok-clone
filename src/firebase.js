@@ -2,11 +2,11 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, addDoc, setDoc,
    doc, updateDoc, arrayUnion, arrayRemove, deleteDoc, deleteField  } from 'firebase/firestore/lite'; //無監聽，基本CRUD，用lite版本。
 //import { getFirestore, doc, onSnapshot } from "firebase/firestore"; //監聽用firestore
+import firebaseKey from './firebaseKey'
+
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-
-};
+const firebaseConfig = firebaseKey
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

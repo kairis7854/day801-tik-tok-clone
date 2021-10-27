@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 /build
+/src/firebaseKey.js
 .pnp.js
 
 # testing
