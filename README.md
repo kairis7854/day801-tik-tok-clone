@@ -3,7 +3,16 @@
 ## DEMO
 連結：https://tik-tok-clone-4dce5.web.app/
 
-## 筆記：firebase
+## 筆記：Firebase 專案創建相關
+Firebase隨時間更新，版本操作介面使用上會有所差異，關鍵字較沒什麼變化，
+這裡紀錄使用關鍵字來創建專案，其他如：資料庫存資料庫存放位置，依個人喜好設定。
+進入官網：https://firebase.google.com/
+
+第一步：官網首頁>尋找點擊console>建立專案(輸入專案名稱)>continue>continue>create project(輸入名稱)\
+第二步：官網首頁>尋找</>圖標(網頁項目) >continue>continue\
+第三步：官網首頁>尋找齒輪圖標(專案設定) >尋找SDK設定和配置(專案金鑰，這裡提供傳統和模塊化引入方式，依個人喜好使用，金鑰後面用到)
+
+## 筆記：Firebase 代碼相關
 官網：https://console.firebase.google.com/
 ```js
 //引入
@@ -157,6 +166,36 @@ const db = getFirestore(app);
 export default db
 ```
  
+## 筆記：Firebase Hosting相關
+第 1 步：安装 Firebase CLI \
+開新終端機 主磁碟系統管理身分 \
+npm install -g firebase-tools \
+firebase login 詢問是否提供資料 選NO \
+選擇GOOGLE帳戶登入 \
+複製授權碼 回終端機貼上 返回 +  Success! Logged in as your@gmail.com \
+補充：若要取消 firebase logout your@gmail.com \
+
+第 2 步：初始化您的项目 \
+開新終端機 項目根目錄下 \
+firebase init hosting\
+? Are you ready to proceed? Yes\
+? Please select an option: (Use arrow keys)\
+> Use an existing project (選這個，已存在repo)\
+  Create a new project \
+  Add Firebase to an existing Google Cloud Platform project \
+  Don't set up a default project \
+
+? Please select an option: Use an existing project \
+? Select a default Firebase project for this directory: tik-tok-clone-4dce5 (tik-tok-clone) \
+? What do you want to use as your public directory? build (修改成build，你只想託管) \
+? Configure as a single-page app (rewrite all urls to /index.html)? Yes \
+? Set up automatic builds and deploys with GitHub? No \
+npm run-script buil \
+
+第 3 步：部署到您的网站 \
+firebase deploy --only hosting \
+
+
 ## 筆記：滾輪、冒泡相關
 CSS：\
 touch-action: none;　//用於移動端，電腦版無效。阻止觸碰滑動，對ul無效\
@@ -283,6 +322,17 @@ function App() {
 ```
 參考：https://www.gushiciku.cn/pl/21XG/zh-tw
 
+## 筆記：git相關
+問題：已經上傳的檔案，無法使用gitignore取消版本控制\
+解決：\
+git rm -r --cached 檔案路徑\
+git add .\
+git commit\
+git push
+
+參考：https://blog.csdn.net/themagickeyjianan/article/details/55519111?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-1.no_search_link&spm=1001.2101.3001.4242.2
+
+參考：https://blog.csdn.net/ai_xm/article/details/84190138
 
 
 
