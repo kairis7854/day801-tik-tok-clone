@@ -45,15 +45,8 @@ function App() {
         videos.map((item,index)=>{
           return(
             <Video
-              id={item.id}
               key={item.id}
-              src={item.firebaseURL}
-              channel={item.author_name}
-              song={item.song}
-              likes={item.likes}
-              msgs={item.msgs}
-              description={item.title}
-              shares={item.shares}
+              videoInfo={item}
               showMessage={showMessage}
               setShowMessage={setShowMessage}
             />

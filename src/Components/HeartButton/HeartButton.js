@@ -1,18 +1,22 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
+import { videoContext } from '../Video/Video';
 import {addLikesArrayUnion} from '../../firebase'
 import {LikesArrayRemove} from '../../firebase'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import './HeartButton.css'
 
-function HeartButton({likes,id}) {
+function HeartButton() {
+  const { likes, id } = useContext(videoContext)
   const [liked,setLiked] = useState(false)
-  const [likeNum,setLikeNum] = useState(likes.length)
+  const [likeNum,setLikeNum] = useState(likes ? likes.length : 0)
 
   useEffect(()=>{
-    const adminInfo = JSON.parse(localStorage.getItem('admin'))
-    const res = likes.find((item,index)=>item === adminInfo.userName)
-    setLiked(res ? true : false)
+    if( likes && likes.length ){
+      const adminInfo = JSON.parse(localStorage.getItem('admin'))
+      const res = likes.find((item,index)=>item === adminInfo.userName)
+      setLiked(res ? true : false)
+    }
   },[likes])
 
   const setLike = (e) => {

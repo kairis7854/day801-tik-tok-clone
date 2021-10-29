@@ -5,7 +5,7 @@
 
 ## 筆記：Firebase 專案創建相關
 Firebase隨時間更新，版本操作介面使用上會有所差異，關鍵字較沒什麼變化，
-這裡紀錄使用關鍵字來創建專案，其他如：資料庫存資料庫存放位置，依個人喜好設定。
+這裡紀錄使用關鍵字來創建專案，其他如：資料庫存放位置，依個人喜好設定。
 進入官網：https://firebase.google.com/
 
 第一步：官網首頁>尋找點擊console>建立專案(輸入專案名稱)>continue>continue>create project(輸入名稱)\
@@ -173,27 +173,27 @@ npm install -g firebase-tools \
 firebase login 詢問是否提供資料 選NO \
 選擇GOOGLE帳戶登入 \
 複製授權碼 回終端機貼上 返回 +  Success! Logged in as your@gmail.com \
-補充：若要取消 firebase logout your@gmail.com \
+補充：若要取消 firebase logout your@gmail.com 
 
 第 2 步：初始化您的项目 \
 開新終端機 項目根目錄下 \
 firebase init hosting\
 ? Are you ready to proceed? Yes\
-? Please select an option: (Use arrow keys)\
+? Please select an option: (Use arrow keys)
 > Use an existing project (選這個，已存在repo)\
-  Create a new project \
+  Create a new project\
   Add Firebase to an existing Google Cloud Platform project \
-  Don't set up a default project \
+  Don't set up a default project 
 
 ? Please select an option: Use an existing project \
 ? Select a default Firebase project for this directory: tik-tok-clone-4dce5 (tik-tok-clone) \
 ? What do you want to use as your public directory? build (修改成build，你只想託管) \
 ? Configure as a single-page app (rewrite all urls to /index.html)? Yes \
 ? Set up automatic builds and deploys with GitHub? No \
-npm run-script buil \
+npm run-script buil 
 
 第 3 步：部署到您的网站 \
-firebase deploy --only hosting \
+firebase deploy --only hosting 
 
 
 ## 筆記：滾輪、冒泡相關

@@ -5,7 +5,9 @@ import Message from '../Message/Message.js'
 import Load from '../Load/Load.js'
 import './Video.css'
 
-function Video({ src, channel, description, song, likes, msgs, shares, id, showMessage, setShowMessage}) {
+export const videoContext = React.createContext(null) 
+
+function Video({ videoInfo, showMessage, setShowMessage}) {
   const [playing,setPlaying] = useState(false)
   const [videoLoaded,setVideoLoaded] = useState(false)
   const videoRef = useRef(null)
@@ -36,17 +38,19 @@ function Video({ src, channel, description, song, likes, msgs, shares, id, showM
     >
       <video 
         className='video__player' 
-        src={src}
+        src={videoInfo.firebaseURL}
         loop
         // controls
         ref={videoRef}
         onLoadStart={()=>{setVideoLoaded(false)}}
         onCanPlay={()=>{setVideoLoaded(true)}}
       ></video>
-      <Load videoLoaded={videoLoaded}/>
-      <VideoFooter channel={channel} description={description} song={song}/>
-      <VideoSideBar likes={likes} msgsLength={msgs.length} shares={shares} id={id} setShowMessage={setShowMessage}/>
-      <Message showMessage={showMessage} setShowMessage={setShowMessage} msgs={msgs} id={id} channel={channel} description={description}/>
+      <videoContext.Provider value={videoInfo}>
+        <Load videoLoaded={videoLoaded}/>
+        <VideoFooter/>
+        <VideoSideBar setShowMessage={setShowMessage}/>
+        <Message showMessage={showMessage} setShowMessage={setShowMessage}/>
+      </videoContext.Provider>
     </div>
   )
 }

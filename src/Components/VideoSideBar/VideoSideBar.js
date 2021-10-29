@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { videoContext } from '../Video/Video.js'
 import HeartButton from '../HeartButton/HeartButton.js'
 import ShareButton from '../ShareButton/ShareButton.js'
 import ChatIcon from '@material-ui/icons/Chat'
 import './VideoSideBar.css'
 
-function VideoSideBar({likes,msgsLength,shares,id,setShowMessage}) {
+function VideoSideBar({setShowMessage}) {
+  const { msgs } = useContext(videoContext)
 
   return (
     <div className='videoSideBar'>
-      <HeartButton likes={likes} id={id}/>
+      <HeartButton/>
       <div className="videoSideBar__button">
         <div  className="videoSideBar__button__inner" onClick={(e)=>{setShowMessage('in');e.stopPropagation(e)}}>
           <ChatIcon fontSize='large'/>
-          <p>{msgsLength}</p>
+          <p>{ msgs ? msgs.length : 0}</p>
         </div>
       </div>
-      <ShareButton shares={shares}/>
+      <ShareButton/>
     </div>
   )
 }

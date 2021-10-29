@@ -1,11 +1,13 @@
-import React,{useEffect,useRef,useState} from 'react'
+import React,{useEffect,useRef,useState,useContext} from 'react'
+import { videoContext } from '../Video/Video';
 import {addMessageArrayUnion,MessageArrayRemove} from '../../firebase'
 import CloseIcon from '@material-ui/icons/Close';
 import MessageIcon from '@material-ui/icons/Message';
 import SendIcon from '@material-ui/icons/Send';
 import './Message.css'
 
-function Message({showMessage,setShowMessage,msgs,id,channel,description}) {
+function Message({showMessage,setShowMessage}) {
+  const { msgs, id, author_name, title } = useContext(videoContext)
   const ULRef = useRef(null)
   const [value,setValue] = useState('')
   const [myMessage,setMyMessage] =  useState([])
@@ -60,8 +62,8 @@ function Message({showMessage,setShowMessage,msgs,id,channel,description}) {
     <div className={`Message ${showMessage}`} onClick={(e)=>{e.stopPropagation(e)}}>
       <div className="Message__top">
         <div className="Message__top__title">
-          <p>{channel}</p>
-          <p>{description}</p>
+          <p>{author_name}</p>
+          <p>{title}</p>
         </div>
         <div className="Message__top__CloseButton" onClick={()=>{setShowMessage('out')}} >
           <CloseIcon  sx={{ fontSize: 25 }} />

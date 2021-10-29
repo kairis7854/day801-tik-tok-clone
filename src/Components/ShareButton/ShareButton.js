@@ -2,7 +2,7 @@ import React from 'react'
 import ShareIcon from '@material-ui/icons/Share'
 import './ShareButton.css'
 
-function ShareButton({shares}) {
+function ShareButton() {
 
   const share = (e) => {
     e.stopPropagation() 
@@ -12,7 +12,7 @@ function ShareButton({shares}) {
   return (
     <div className="ShareButton">
       <div className="ShareButton__ICON" onClick={(e)=>{share(e)}}>
-         <ShareIcon fontSize='large' />
+         <ShareIcon fontSize='large'/>
       </div>
     </div>
   )

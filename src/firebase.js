@@ -65,7 +65,7 @@ export async function addLikesArrayUnion(id,adminID) { //videoID，用戶ID
     await updateDoc(addMessageRef, {
       likes: arrayUnion(adminID)
     });
-    console.log('addMessageArrayUnion:success');
+    console.log('addLikesArrayUnion:success');
   } catch (e) {
     console.error("Error : ", e);
   }
@@ -78,7 +78,7 @@ export async function LikesArrayRemove(id,adminID) {
     await updateDoc(likesRef, {
     likes: arrayRemove(adminID)
   });
-    console.log('videoArrayRemove:success');
+    console.log('LikesArrayRemove:success');
   } catch (e) {
     console.error("Error : ", e);
   }
