@@ -190,7 +190,7 @@ firebase init hosting\
 ? What do you want to use as your public directory? build (修改成build，你只想託管) \
 ? Configure as a single-page app (rewrite all urls to /index.html)? Yes \
 ? Set up automatic builds and deploys with GitHub? No \
-npm run-script buil 
+npm run-script build
 
 第 3 步：部署到您的网站 \
 firebase deploy --only hosting 

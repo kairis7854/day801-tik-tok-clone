@@ -1,5 +1,5 @@
 import React,{useEffect,useRef,useState,useContext} from 'react'
-import { videoContext } from '../Video/Video';
+import { videoContext, messageContext } from '../Video/Video';
 import {addMessageArrayUnion,MessageArrayRemove} from '../../firebase'
 import CloseIcon from '@material-ui/icons/Close';
 import MessageIcon from '@material-ui/icons/Message';
@@ -7,11 +7,10 @@ import SendIcon from '@material-ui/icons/Send';
 import './Message.css'
 
 function Message({showMessage,setShowMessage}) {
-  const { msgs, id, author_name, title } = useContext(videoContext)
+  const { id, author_name, title } = useContext(videoContext)
+  const [ messages, dispatch ] = useContext(messageContext)
   const ULRef = useRef(null)
   const [value,setValue] = useState('')
-  const [myMessage,setMyMessage] =  useState([])
-  const [msgFilter,setMsgFilter] = useState([])
   const admin = localStorage.getItem('admin')
   const adminID = JSON.parse(admin).userName
 
@@ -36,26 +35,13 @@ function Message({showMessage,setShowMessage}) {
     const now = new Date()　
     const msgId = now.getTime()
     addMessageArrayUnion(id,msgId,adminID,value)////firebase添加。videoID,訊息ID,用戶ID,訊息
-    setMyMessage([...myMessage,{id:msgId,auth:'訪客',user:adminID,msg:value}])
+    dispatch({ type: 'ADD_Message', payload: {id:msgId,auth:'訪客',user:adminID,msg:value}})
     setValue('')
   }
 
-  const deleteMessage = (msgId,user,auth,msg) => { //刪除評論。沒使用Realtime Database反而多做許多事
-    let newMessage = myMessage
-    newMessage = newMessage.filter((item,index)=>{
-      return item.id !== msgId
-    })
-    setMyMessage(newMessage)
+  const deleteMessage = (msgId,user,auth,msg) => { //刪除評論
     MessageArrayRemove(id,msgId,user,auth,msg)//firebase刪除。videoID,msgId,user,auth,msg
-    setMsgFilter([...msgFilter,msgId]) //添加需要屏蔽的數據ID
-  }
-
-  const hasFilter = (item) => {  
-    //刪除評論。這裡使用簡單的過濾將firebase傳過來的msg訊息簡單屏蔽，但這樣做並不好，即使使用find。
-    //另一種方法是先用filter過濾再用find減輕計算量，或是改用Realtime Database，或是每次操作發送請求取最新資料
-    return msgFilter.find((item2)=>{
-      return item2 === item.id
-    })
+    dispatch({type: 'DELETE_Message', payload: {id:msgId}})
   }
 
   return (
@@ -71,38 +57,17 @@ function Message({showMessage,setShowMessage}) {
       </div>
       <ul className='Message__ul' ref={ULRef}>
         {
-          msgs //firebase的數據
-            ? msgs.map((item,index)=>{
-              if(!hasFilter(item)){
-                return(
-                  <li className={item.user === adminID ? 'Message__ul__li userLi' : 'Message__ul__li somebodyLi' } key={index}>
-                    <div className='Message__ul__li__title' >
-                      <p>{item.user === adminID ? '您 ' : null}{item.user}</p>
-                      <p>{item.auth}</p>
-                    </div>
-                    <p className='Message__ul__li__content' >{item.msg}</p>
-                    <div className='Message__ul__li__button' style={{display:item.user === adminID ? 'flex' : 'none' }}>
-                      <div onClick={()=>{deleteMessage(item.id,item.user,item.auth,item.msg)}}>收回</div>
-                    </div>
-                  </li>
-                )
-              } 
-              return null
-          })
-            : null
-        }
-        {
-          myMessage.length > 0 //新增評論的臨時數據
-            ? myMessage.map((item,index)=>{   
+          messages 
+            ? messages.map((item,index)=>{
               return(
-                <li className='Message__ul__li userLi' key={index}>
+                <li className={item.user === adminID ? 'Message__ul__li userLi' : 'Message__ul__li somebodyLi' } key={index}>
                   <div className='Message__ul__li__title' >
-                    <p>您 {adminID}</p>
-                    <p>訪客</p>
+                    <p>{item.user === adminID ? '您 ' : null}{item.user}</p>
+                    <p>{item.auth}</p>
                   </div>
                   <p className='Message__ul__li__content' >{item.msg}</p>
-                  <div className='Message__ul__li__button'>
-                    <div onClick={()=>{deleteMessage(item.id,item.user,item.auth,item.msg)}} >收回</div>
+                  <div className='Message__ul__li__button' style={{display:item.user === adminID ? 'flex' : 'none' }}>
+                    <div onClick={()=>{deleteMessage(item.id,item.user,item.auth,item.msg)}}>收回</div>
                   </div>
                 </li>
               )
