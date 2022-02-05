@@ -334,8 +334,126 @@ git push
 
 參考：https://blog.csdn.net/ai_xm/article/details/84190138
 
+## 筆記：git相關
+問題：未上傳情況下，給commit添加小更改\
+使用：git reset --soft HEAD~1\
+git reset 指令可以搭配參數使用，常見三種參數，分別是 --mixed、--soft 以及 --hard
+mixed 模式。預設的參數。這個模式會把暫存區的檔案丟掉，但不會動到工作目錄的檔案，也就是說 Commit 拆出來的檔案會留在工作目錄，但不會留在暫存區。
+soft 模式。這個模式下，工作目錄跟暫存區的檔案都不會被丟掉，所以看起來就只有 HEAD 的移動而已。也因此，Commit 拆出來的檔案會直接放在暫存區。
+hard 模式。這個模式下，不管是工作目錄以及暫存區的檔案都會丟掉。
+參考：https://www.maxlist.xyz/2020/05/03/git-reset-checkout/
+參考：https://gitbook.tw/chapters/using-git/reset-commit.html
 
+## 筆記：React移動端上自適應屏幕寬高
+和原生處理方式一樣，使用innerWidth，上代碼
+```js
+//getWindowDimensions.js
+import { useState, useEffect } from 'react';
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+export default function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+```
+引入
+```js
+//目標組件
+const Component = () => {
+  const { height, width } = useWindowDimensions();
+
+  return (
+   
+      width: {width} ~ height: {height}
+   
+  );
+}
+```
+參考：https://www.codenong.com/36862334/ \
+參考：https://tools.wingzero.tw/article/sn/225
+
+## 筆記：React移動端觸控相關
+需求：禁止移動端輪播圖在第一輪時向上滑動\
+React本身有自己的事件處理，這裡使用了Ref調用了原生方法。
+
+```js
+  useEffect(()=>{ //設置無限下滑
+    let myVideoRef = videoRef
+    let round = 0
+    let startY = Number
+
+    let scrollRule = (e) => { //PC端
+      let totalHeight = myVideoRef.current.scrollHeight
+      let nodeHeight = myVideoRef.current.scrollHeight/videos.length
+      let videoScrollTop = myVideoRef.current.scrollTop
+      if(round === 0 && nodeHeight > videoScrollTop){
+        e.preventDefault();
+        myVideoRef.current.scrollTop = nodeHeight
+        return false
+      }
+      if(videoScrollTop === totalHeight-nodeHeight){
+        myVideoRef.current.scrollTop = nodeHeight
+        round++
+      }
+      if(videoScrollTop === 0){
+        myVideoRef.current.scrollTop = totalHeight-nodeHeight*2
+        round--
+      }
+    }
+
+    //---------------移動端規則start--------------------
+    let touchStart = (e) => {
+      startY = e.touches[0].pageY;
+    }
+    let touchMove = (e) => {
+      let nodeHeight = myVideoRef.current.scrollHeight/videos.length
+      let videoScrollTop = myVideoRef.current.scrollTop
+      let spanY = e.changedTouches[0].pageY - startY
+      if(round === 0 && nodeHeight >= videoScrollTop && spanY > -30){
+        e.preventDefault();
+      }
+    }
+    let touchEnd = (e) => {
+      let nodeHeight = myVideoRef.current.scrollHeight/videos.length
+      let videoScrollTop = myVideoRef.current.scrollTop
+      let spanY = e.changedTouches[0].pageY - startY
+      if(round === 0 && nodeHeight > videoScrollTop && spanY > -30){
+        e.preventDefault();
+      }
+    }
+    //---------------移動端規則end--------------------
+
+    myVideoRef.current.addEventListener('scroll',scrollRule)
+    myVideoRef.current.addEventListener('touchstart', touchStart, false); 
+    myVideoRef.current.addEventListener('touchmove', touchMove, false); 
+    myVideoRef.current.addEventListener('touchend', touchEnd, false); 
+    return(()=>{
+      myVideoRef.current.removeEventListener('scroll',scrollRule)
+      myVideoRef.current.removeEventListener('touchstart', touchStart, false); 
+      myVideoRef.current.removeEventListener('touchmove', touchMove, false); 
+      myVideoRef.current.removeEventListener('touchend', touchEnd, false); 
+
+    })
+  },[videos])
+```
+參考：https://www.itread01.com/content/1547211091.html
 
 
 

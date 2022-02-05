@@ -45,7 +45,13 @@ function Message({showMessage,setShowMessage}) {
   }
 
   return (
-    <div className={`Message ${showMessage}`} onClick={(e)=>{e.stopPropagation(e)}}>
+    <div 
+      className={`Message ${showMessage}`} 
+      onClick={(e)=>{e.stopPropagation(e)}} 
+      onTouchStartCapture={(e)=>{e.stopPropagation(e)}}
+      onTouchMoveCapture={(e)=>{e.stopPropagation(e)}}
+      onTouchEndCapture={(e)=>{e.stopPropagation(e)}}
+    >      
       <div className="Message__top">
         <div className="Message__top__title">
           <p>{author_name}</p>

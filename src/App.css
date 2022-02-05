@@ -6,16 +6,21 @@ html{
   display:grid;
   place-items:center;
   background:black;
-  height: 100vh;
+  min-width: 280px;
+  min-height: 568px;
+  /* height: 100vh; */
 }
 
 .App__videos{
   position:relative;
-  height:100vh;
+  height:100%;
   overflow:scroll;
   overflow-x: hidden;
   width: 100%;
+  min-width: 280px;
+  min-height: 568px;
   max-width: 500px;
+  max-height: 1024px;
   /* min-width: 364px; */
   scroll-snap-type: y mandatory;
 }
